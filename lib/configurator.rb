@@ -46,7 +46,7 @@ module Configurator
         pair = ConfigurationHash.find_by_key_and_owner(key.to_s, @reference)
         unless pair
           pair = ConfigurationHash.new(@options)
-          pair.key, pair.value = key, value
+          pair.key, pair.value = key.to_s, value
           pair.save
         else
           pair.value = value
@@ -55,7 +55,7 @@ module Configurator
         value
       end
 
-      def to_hash
+      def to_hash(with_defaults = false)
         Hash[ *ConfigurationHash.find_all_by_owner(@reference).map { |pair| [pair.key, pair.value] }.flatten ]
       end
 

@@ -4,6 +4,8 @@
 
 Unleash your models and quickly and easily annotate anything. Store booleans, strings, or optionally serialized objects (hashes, custom classes, whatever) without extra migrations.
 
+Configurator is meant to store basic things. There's no easy way to query for models that match a particular criteria, so don't go overboard. This satisfies some of my needs, but I don't recommend relying on it as a replacement for traditional model fields.
+
 Want your users to be able to define custom settings?
 
   class User < ActiveRecord::Base

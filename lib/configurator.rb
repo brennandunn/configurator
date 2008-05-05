@@ -42,7 +42,8 @@ module Configurator
 
         pair = ConfigurationHash.find_by_key_and_owner(key.to_s, @reference, namespace ? namespace.to_s : nil)
         if pair.nil?
-          @defaults[namespace ? keys : key.to_sym] || nil
+          namespace ? @defaults[namespace][key] : @defaults[key] rescue nil
+          #@defaults[namespace ? keys : key.to_sym] || nil
         else
           pair.value
         end

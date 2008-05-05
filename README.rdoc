@@ -54,7 +54,7 @@ Databases don't come filled, so there's an easy way to set defaults on your mode
   class User < ActiveRecord::Base
     include Configurator
 
-    default_configuration :favorite_color => 'red', :receive_email_alerts? => true
+    default_configuration :favorite_color => 'red', :receive_email_alerts? => true, :salary => { :default_for_manager => '$55,000', :default_for_employee => '$25,000' }
   end
 
   @user.config[:favorite_color] # => 'red'

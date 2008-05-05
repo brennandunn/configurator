@@ -15,7 +15,7 @@ end
 class Company < ActiveRecord::Base
   include Configurator
   
-  default_configuration :notify_users? => true, [:salary, :default_manager] => '$55,000'
+  default_configuration :notify_users? => true, :salary => { :default_for_manager => '$55,000', :default_for_employee => '$25,000' }
 end
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :dbfile => ":memory:")

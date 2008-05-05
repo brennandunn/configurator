@@ -35,9 +35,9 @@ class ConfiguratorTest < Test::Unit::TestCase
   end
   
   def test_default_configuration_settings
-    assert_equal '$55,000', @company.config[:salary, :default_manager]
-    @company.config[:salary, :default_manager] = '$65,000'
-    assert_equal '$65,000', @company.config[:salary, :default_manager]
+    assert_equal '$55,000', @company.config[:salary, :default_for_manager]
+    @company.config[:salary, :default_for_manager] = '$65,000'
+    assert_equal '$65,000', @company.config[:salary, :default_for_manager]
   end
 
   def test_mass_assignment

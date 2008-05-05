@@ -16,7 +16,7 @@ Now you can do things like:
 
   @user.config[:receive_email_alerts?] = true
   
-  or
+or
   
   @user.config[:notification_address] = 'user@gmail.com'
 
@@ -40,11 +40,11 @@ Namespaces within hash assignments:
 
 Easy to use in views:
 
-<% fields_for :config, @user.config do |c| %>
+  <% fields_for :config, @user.config do |c| %>
 
-  <%= c.select :favorite_color, %w(red green blue) %>
+    <%= c.select :favorite_color, %w(red green blue) %>
 
-<% end %>
+  <% end %>
 
 
 === Default Options

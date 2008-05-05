@@ -27,18 +27,25 @@ class ConfiguratorTest < Test::Unit::TestCase
     assert_equal true, @user.config[:likes_dogs?]
   end
   
+  def test_namespace
+    @user.config[:animals, :likes_cats?] = true
+    @user.config[:animals, :favorite] = 'cat'
+    assert_equal true, @user.config[:animals, :likes_cats?]
+    assert_equal 'cat', @user.config[:animals, :favorite]
+  end
+  
   def test_default_configuration_settings
-    assert_equal '$55,000', @company.config[:default_employee_salary]
-    @company.config[:default_employee_salary] = '$65,000'
-    assert_equal '$65,000', @company.config[:default_employee_salary]
+    assert_equal '$55,000', @company.config[:salary, :default_manager]
+    @company.config[:salary, :default_manager] = '$65,000'
+    assert_equal '$65,000', @company.config[:salary, :default_manager]
   end
 
   def test_mass_assignment
-    hash = { :favorite_color => 'red', :favorite_city => 'New York', :favorite_artist => 'Radiohead' }
+    hash = { :favorite_color => 'red', :favorite_city => 'New York', :favorite_artist => 'Radiohead', :animals => { :favorite => 'cat', :likes_elephants? => true } }
     @user.config = hash
-    hash.each do |key, value|
-      assert_equal @user.config[key], value
-    end
+    assert_equal @user.config[:favorite_color], 'red'
+    assert_equal @user.config[:animals, :favorite], 'cat'
+    assert_equal @user.config[:animals, :likes_elephants?], true
   end
 
 end

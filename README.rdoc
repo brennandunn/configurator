@@ -1,5 +1,6 @@
-Configurator
-============
+= Configurator
+
+== Expalanation
 
 Unleash your models and quickly and easily annotate anything. Store booleans, strings, or optionally serialized objects (hashes, custom classes, whatever) without extra migrations.
 
@@ -8,6 +9,8 @@ Want your users to be able to define custom settings?
   class User < ActiveRecord::Base
     include Configurator
   end
+
+=== Basics
 
 Now you can do things like:
 
@@ -20,9 +23,22 @@ Now you can do things like:
 Think of it as just a giant hash.
 
   @user.config = { :favorite_animal => 'dog', :favorite_color => 'blue' }
+
   
+=== Namespaces
+
+Support for one level of namespacing:
+
+  @user.config[:animals, :favorite] = 'cat'
   
-And because we love forms...
+Namespaces within hash assignments:
+  
+  @user.config = { :animals => { :favorite => 'cat', :likes_elephants? => true }, :artists => { :favorite => 'Radiohead' } }
+
+
+=== Form support  
+
+Easy to use in views:
 
 <% fields_for :config, @user.config do |c| %>
 
@@ -30,6 +46,8 @@ And because we love forms...
 
 <% end %>
 
+
+=== Default Options
 
 Databases don't come filled, so there's an easy way to set defaults on your models.
 
@@ -44,8 +62,7 @@ Databases don't come filled, so there's an easy way to set defaults on your mode
   @user.config[:favorite_color] # => 'green'
   
 
-Install
-=======
+== Setup
 
 To setup, you really just need to create the config table:
 
@@ -54,7 +71,8 @@ To setup, you really just need to create the config table:
       create_table :config do |t|
       
         t.references    :associated, :polymorphic => true
-      
+        
+        t.string        :namespace
         t.string        :key,         :limit => 40,     :null => false
         t.string        :value
       

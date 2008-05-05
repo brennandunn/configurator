@@ -15,7 +15,7 @@ end
 class Company < ActiveRecord::Base
   include Configurator
   
-  default_configuration :notify_users? => true, :default_employee_salary => '$55,000'
+  default_configuration :notify_users? => true, [:salary, :default_manager] => '$55,000'
 end
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :dbfile => ":memory:")
@@ -25,6 +25,7 @@ def setup_db
 
     create_table :config do |t|
       t.references    :associated, :polymorphic => true
+      t.string        :namespace
       t.string        :key,         :limit => 40,     :null => false
       t.string        :value
     end

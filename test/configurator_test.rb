@@ -34,6 +34,14 @@ class ConfiguratorTest < Test::Unit::TestCase
     assert_equal 'cat', @user.config[:animals, :favorite]
   end
   
+  def test_finding_in_namespace
+    @user.config[:animals, :cat] = 'Toby'
+    @user.config[:animals, :dog] = 'Gabby'
+    @user.config[:animals, :mouse] = 'Mickey'
+    hsh = { :cat => 'Toby', :dog => 'Gabby', :mouse => 'Mickey' }
+    assert_equal hsh, @user.config.namespace(:animals)
+  end
+  
   def test_default_configuration_settings
     assert_equal '$55,000', @company.config[:salary, :default_for_manager]
     @company.config[:salary, :default_for_manager] = '$65,000'

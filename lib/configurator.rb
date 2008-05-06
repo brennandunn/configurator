@@ -70,6 +70,11 @@ module Configurator
         end
         value
       end
+      
+      def namespace(ns)
+        configs = ConfigurationHash.find_all_by_namespace(ns.to_s)
+        configs.inject({}) { |hsh, c| hsh[c.key.intern] = c.value; hsh }
+      end
 
       def to_hash(with_defaults = false)
         Hash[ *ConfigurationHash.find_all_by_owner(@reference).map { |pair| [pair.key, pair.value] }.flatten ]

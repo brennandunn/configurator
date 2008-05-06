@@ -37,6 +37,11 @@ Namespaces within hash assignments:
   
   @user.config = { :animals => { :favorite => 'cat', :likes_elephants? => true }, :artists => { :favorite => 'Radiohead' } }
 
+Querying namespaces:
+
+  @user.config = { :animals => { :cat => 'Toby', :dog => 'Gabby' } }
+  @user.config.namespace(:animals)  # => { :cat => 'Toby', :dog => 'Gabby' }
+  
 
 === Form support  
 

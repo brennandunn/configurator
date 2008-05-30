@@ -78,7 +78,7 @@ Sometimes you don't want to be restricted to configuring records, and would like
 
   User.config[:notification_email] = 'Welcome new user!'
   
-Sometimes you just want to be able to have a set something outside of your applications models. Maybe you want to be able to configure something like the text fields on your login page.
+What if you just want to be able to set something outside of your applications models? Maybe you'd like to be able to configure something like the text fields on your login page?
 
   <h1><%= Configurator[:login_page, :headline] %></h1>
   

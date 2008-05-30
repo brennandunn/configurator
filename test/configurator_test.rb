@@ -1,8 +1,8 @@
 require 'test/unit'
 require File.join(File.dirname(__FILE__), 'helper')
-
+ 
 class ConfiguratorTest < Test::Unit::TestCase
-
+ 
   def setup
     setup_db
     @user = User.create
@@ -47,7 +47,7 @@ class ConfiguratorTest < Test::Unit::TestCase
     @company.config[:salary, :default_for_manager] = '$65,000'
     assert_equal '$65,000', @company.config[:salary, :default_for_manager]
   end
-
+ 
   def test_mass_assignment
     hash = { :favorite_color => 'red', :favorite_city => 'New York', :favorite_artist => 'Radiohead', :animals => { :favorite => 'cat', :likes_elephants? => true } }
     @user.config = hash
@@ -55,5 +55,22 @@ class ConfiguratorTest < Test::Unit::TestCase
     assert_equal @user.config[:animals, :favorite], 'cat'
     assert_equal @user.config[:animals, :likes_elephants?], true
   end
-
+  
+  def test_basic_on_class
+    User.config[:default_salary] = '$55,000'
+    assert_equal User.config[:default_salary], '$55,000'
+  end
+  
+  def test_defaults_on_class
+    assert_equal Company.config[:salary, :default_for_manager], '$55,000'
+  end
+  
+  def test_mass_assignment_on_class
+    hash = { :favorite_color => 'red', :favorite_city => 'New York', :favorite_artist => 'Radiohead', :animals => { :favorite => 'cat', :likes_elephants? => true } }
+    User.config = hash
+    assert_equal User.config[:favorite_color], 'red'
+    assert_equal User.config[:animals, :favorite], 'cat'
+    assert_equal User.config[:animals, :likes_elephants?], true
+  end
+ 
 end

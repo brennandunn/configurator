@@ -7,7 +7,7 @@ module Configurator
     end
     
     def get_default_configuration
-      @@default_configuration
+      @@default_configuration rescue {}
     end
     
     def config
@@ -26,7 +26,7 @@ module Configurator
     def config
       @config_proxy ||= ConfigProxy.new(:instance, self)
     end
-
+ 
     def config=(hsh)
       config.from_hash(hsh)
       config
@@ -50,26 +50,46 @@ module Configurator
       end
     end
 
-    def [](key)
-      pair = ConfigurationHash.find_by_key_and_owner(key.to_s, @reference, @call_type)
+    def [](*keys)
+      namespace, key = [keys].flatten
+      if key.nil?
+        key = namespace
+        namespace = nil
+      end
+
+      pair = ConfigurationHash.find_by_key_and_owner(@call_type, key.to_s, @reference, namespace ? namespace.to_s : nil)
       if pair.nil?
-        @defaults[key.to_sym] || nil
+        namespace ? @defaults[namespace][key] : @defaults[key] rescue nil
       else
         pair.value
       end
+      
     end
 
-    def []=(key, value)
-      pair = ConfigurationHash.find_by_key_and_owner(key.to_s, @reference, @call_type)
+    def []=(*keys)
+      if keys.size == 3
+        namespace, key = keys[0], keys[1]
+        value = keys[2]
+      else
+        key, value = keys[0], keys[1]
+      end
+              
+      pair = ConfigurationHash.find_by_key_and_owner(@call_type, key.to_s, @reference, namespace ? namespace.to_s : nil)
       unless pair
         pair = ConfigurationHash.new(@options)
         pair.key, pair.value = key.to_s, value
+        pair.namespace = namespace.to_s if namespace
         pair.save
       else
         pair.value = value
         pair.save
       end
       value
+    end
+    
+    def namespace(ns)
+      configs = ConfigurationHash.find_all_by_namespace(ns.to_s)
+      configs.inject({}) { |hsh, c| hsh[c.key.intern] = c.value; hsh }
     end
 
     def to_hash(with_defaults = false)
@@ -78,7 +98,14 @@ module Configurator
 
     def from_hash(hsh)
       hsh.each do |key, value|
-        self[key] = value
+        if value.is_a?(Hash)
+          namespace = key
+          value.each do |key, value|
+            self[namespace, key] = value
+          end
+        else
+          self[key] = value
+        end
       end
     end
 

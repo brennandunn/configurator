@@ -72,5 +72,12 @@ class ConfiguratorTest < Test::Unit::TestCase
     assert_equal User.config[:animals, :favorite], 'cat'
     assert_equal User.config[:animals, :likes_elephants?], true
   end
+  
+  def test_base_basics
+    Configurator[:enable_quantum_accelerator?] = true
+    assert Configurator[:enable_quantum_accelerator?]
+    Configurator[:colors, :favorite] = 'red'
+    assert_equal Configurator[:colors, :favorite], 'red'
+  end
  
 end

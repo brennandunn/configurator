@@ -22,10 +22,6 @@ or
   
   @user.config[:notification_address] = 'user@gmail.com'
 
-and even
-
-  User.config[:welcome_email] = "Thank you for signing up as a new user!"
-  Company.config[:welcome_email] = "Thank you for adding your company to our database!"
 
 You can set configurations to either instances or classes. Setting key/value pairs to classes is especially useful for setting up application-wide settings.
 
@@ -74,6 +70,25 @@ Databases don't come filled, so there's an easy way to set defaults on your mode
   @user.config[:favorite_color] # => 'red'
   @user.config[:favorite_color] = 'green'
   @user.config[:favorite_color] # => 'green'
+  
+
+== Global Settings
+
+Sometimes you don't want to be restricted to configuring records, and would like to apply Configurator to a class or to something even more global. Well, now you can.
+
+  User.config[:notification_email] = 'Welcome new user!'
+  
+Sometimes you just want to be able to have a set something outside of your applications models. Maybe you want to be able to configure something like the text fields on your login page.
+
+  <h1><%= Configurator[:login_page, :headline] %></h1>
+  
+  <p><%= Configurator[:login_page, :username] %></p>
+  <%= text_field_tag :username %>
+  
+  <p><%= Configurator[:login_page, :password] %></p>
+  ...
+  
+Simply store the above values, and you're now able to quickly attach a form to those different values, and satisfy your clients need to have every single aspect of the application. I'm sure there are plugins that do just this, but this is an example of Configurators global reach.
   
  
 == Setup

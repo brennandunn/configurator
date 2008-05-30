@@ -1,4 +1,17 @@
 module Configurator
+  mattr_accessor :config
+  
+  def self.[](*keys)
+    self.config ||= ConfigProxy.new(:class, self)
+    self.config[*keys]
+  end
+  
+  def self.[]=(*keys)
+    self.config ||= ConfigProxy.new(:class, self)
+    value = *keys.pop
+    self.config[*keys] = value
+  end
+  
   module ClassMethods
     
     def default_configuration(hsh = {})
@@ -43,10 +56,10 @@ module Configurator
       case call_type
       when :instance
         @options = { :associated_id => reference.id, :associated_type => reference.class.name }
-        @defaults = reference.class.get_default_configuration || {}
+        @defaults = reference.class.get_default_configuration rescue {}
       when :class
         @options = { :associated_type => reference.name }
-        @defaults = reference.get_default_configuration || {}
+        @defaults = reference.get_default_configuration rescue {}
       end
     end
 

@@ -5,13 +5,15 @@ class ConfigurationHash < ActiveRecord::Base
   
   class << self
     
-    def find_by_key_and_owner(key, owner, namespace = nil)
-      options = namespace ? { :namespace => namespace } : {}
-      find(:first, :conditions => { :key => key, :associated_id => owner.id, :associated_type => owner.class.name }.merge(options))
+    def find_by_key_and_owner(key, owner, call_type)
+      find(:first, :conditions => { :key => key, 
+                                    :associated_id => call_type == :instance ? owner.id : nil, 
+                                    :associated_type => call_type == :instance ? owner.class.name : owner.name })
     end
     
-    def find_all_by_owner(owner)
-      find(:all, :conditions => { :associated_id => owner.id, :associated_type => owner.class.name })
+    def find_all_by_owner(owner, call_type)
+      find(:all, :conditions => { :associated_id => call_type == :instance ? owner.id : nil, 
+                                  :associated_type => call_type == :instance ? owner.class.name : owner.name })
     end
     
   end

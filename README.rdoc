@@ -76,10 +76,17 @@ Databases don't come filled, so there's an easy way to set defaults on your mode
 
 Sometimes you don't want to be restricted to configuring records, and would like to apply Configurator to a class or to something even more global. Well, now you can.
 
+=== Per Model
+
   User.config[:notification_email] = 'Welcome new user!'
   
-What if you just want to be able to set something outside of your applications models? Maybe you'd like to be able to configure something like the text fields on your login page?
+=== Globally
 
+  Configurator[:default_notification_email] = 'Welcome to our website!'
+  
+
+Example of a database driven view layer:
+  
   <h1><%= Configurator[:login_page, :headline] %></h1>
   
   <p><%= Configurator[:login_page, :username] %></p>

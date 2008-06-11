@@ -12,6 +12,12 @@ module Configurator
     self.config[*keys] = value
   end
   
+  def self.from_hash(hsh)
+    self.config ||= ConfigProxy.new(:class, self)
+    self.config.from_hash(hsh)
+    self.config
+  end
+  
   module ClassMethods
     
     def default_configuration(hsh = {})

@@ -13,9 +13,11 @@ class ConfigurationHash < ActiveRecord::Base
                                    }.merge(options))
     end
     
-    def find_all_by_owner(call_type, owner)
+    def find_all_by_owner(call_type, owner, namespace = nil)
+      options = namespace ? { :namespace => namespace } : {}
       find(:all, :conditions => { :associated_id => call_type == :instance ? owner.id : nil, 
-                                  :associated_type => call_type == :instance ? owner.class.name : owner.name })
+                                  :associated_type => call_type == :instance ? owner.class.name : owner.name 
+                                  }.merge(options))
     end
     
   end

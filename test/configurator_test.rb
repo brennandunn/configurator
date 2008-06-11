@@ -28,10 +28,23 @@ class ConfiguratorTest < Test::Unit::TestCase
   end
   
   def test_namespace
+    @other_user = User.create
+    
     @user.config[:animals, :likes_cats?] = true
     @user.config[:animals, :favorite] = 'cat'
+
+    @other_user.config[:animals, :likes_cats?] = false
+    @other_user.config[:animals, :favorite] = 'dog'
+
     assert_equal true, @user.config[:animals, :likes_cats?]
     assert_equal 'cat', @user.config[:animals, :favorite]
+    assert_equal false, @other_user.config[:animals, :likes_cats?]
+    assert_equal 'dog', @other_user.config[:animals, :favorite]
+
+    assert_equal true, @user.config.namespace(:animals)[:likes_cats?]
+    assert_equal 'cat', @user.config.namespace(:animals)[:favorite]
+    assert_equal false, @other_user.config.namespace(:animals)[:likes_cats?]
+    assert_equal 'dog', @other_user.config.namespace(:animals)[:favorite]
   end
   
   def test_finding_in_namespace

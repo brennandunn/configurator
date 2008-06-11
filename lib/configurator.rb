@@ -101,7 +101,7 @@ module Configurator
     end
     
     def namespace(ns)
-      configs = ConfigurationHash.find_all_by_namespace(ns.to_s)
+      configs = ConfigurationHash.find_all_by_owner(@call_type, @reference, ns ? ns.to_s : nil)
       configs.inject({}) { |hsh, c| hsh[c.key.intern] = c.value; hsh }
     end
 

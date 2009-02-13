@@ -4,9 +4,13 @@ rescue LoadError
   require 'rubygems'
   require 'activerecord'
 end
+require 'test/unit'
+require 'shoulda'
+require 'mocha'
 
-require File.join(File.dirname(__FILE__), '..', 'lib', 'configurator')
-require File.join(File.dirname(__FILE__), '..', 'lib', 'configuration_hash')
+$LOAD_PATH.unshift(File.dirname(__FILE__)+'/../lib')
+require 'configurator'
+require 'configuration_hash'
 
 class User < ActiveRecord::Base
   include Configurator
@@ -21,23 +25,23 @@ end
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :dbfile => ":memory:")
  
 def setup_db
-  ActiveRecord::Schema.define(:version => 1) do
-
-    create_table :config do |t|
-      t.references    :associated, :polymorphic => true
-      t.string        :namespace
-      t.string        :key,         :limit => 40,     :null => false
-      t.string        :value
-    end
+  ::ActiveRecord::Base.class_eval do
+    silence do
+      connection.create_table :config, :force => true do |t|
+        t.references    :associated, :polymorphic => true
+        t.string        :namespace
+        t.string        :key,         :limit => 40,     :null => false
+        t.string        :value
+      end
     
-    create_table :users do |t|
-      t.string        :handle
-    end
+      connection.create_table :users, :force => true do |t|
+        t.string        :handle
+      end
     
-    create_table :companies do |t|
-      t.string        :name
+      connection.create_table :companies, :force => true do |t|
+        t.string        :name
+      end
     end
-
   end
 end
  

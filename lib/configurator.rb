@@ -23,6 +23,9 @@ module Configurator
     def default_configuration(hsh = {})
       hsh.symbolize_keys!
       @@default_configuration = hsh
+      hsh.each do |key, value|
+        config[key] = value
+      end
     end
     
     def get_default_configuration

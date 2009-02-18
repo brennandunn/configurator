@@ -32,6 +32,7 @@ def setup_db
         t.string        :namespace
         t.string        :key,         :limit => 40,     :null => false
         t.string        :value
+        t.string        :data_type,   :limit => 40
       end
     
       connection.create_table :users, :force => true do |t|

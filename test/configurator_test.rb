@@ -17,11 +17,13 @@ class ConfiguratorTest < Test::Unit::TestCase
       assert_equal 'New York', @user.config[:favorite_city]
     end
 
-    should 'test for TRUE values when supplying an inquiry key' do
-      @user.config[:likes_cats?] = 'true'
-      assert_equal true, @user.config[:likes_cats?]
-      @user.config[:likes_dogs?] = true
-      assert_equal true, @user.config[:likes_dogs?]
+    should 'test for data types being preserved' do
+      @user.config[:age] = 50
+      assert_instance_of Fixnum, @user.config[:age]
+      @user.config[:likes_cats?] = true
+      assert_instance_of TrueClass, @user.config[:likes_cats?]
+      @user.config[:account_balance] = 123.45
+      assert_instance_of Float, @user.config[:account_balance]
     end
 
     should 'handle two levels of namespaces as keys' do

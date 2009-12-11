@@ -99,25 +99,11 @@ Simply store the above values, and you're now able to quickly attach a form to t
   
  
 == Setup
- 
-To setup, you really just need to create the config table:
- 
-  class AddConfigTable < ActiveRecord::Migration
-    def self.up
-      create_table :config do |t|
-        t.references    :associated, :polymorphic => true
-        t.string        :namespace
-        t.string        :key,         :limit => 40,     :null => false
-        t.string        :value
-      end
-    end
- 
-    def self.down
-      drop_table :config
-    end
-  end
- 
-Include Configurator into the models you need it in, and that's it.
+
+- Install the gem
+- Run the config_table generator
+- Migrate your database
+- Include Configurator into the models you need it in, and that's it.
  
 If you need to be able to store complex objects, or strings greater than 255 characters, change the 'value' column to text. You can add to the ConfigurationHash class:
   
@@ -125,4 +111,4 @@ If you need to be able to store complex objects, or strings greater than 255 cha
   
 I haven't tried this yet, but it should work fine.
 
-Copyright (c) 2008 Brennan Dunn, released under the MIT license
+Copyright (c) 2009 Brennan Dunn, released under the MIT license

@@ -6,11 +6,12 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
     s.name = "configurator"
-    s.summary = %Q{TODO}
+    s.summary = %Q{Fatten your models with key/value pairs}
     s.email = "me@brennandunn.com"
     s.homepage = "http://github.com/brennandunn/configurator"
-    s.description = "TODO"
+    s.description = "Fatten your models with key/value pairs"
     s.authors = ["Brennan Dunn"]
+    s.files = %w(MIT-LICENSE README.rdoc Rakefile) + Dir.glob("{lib,test,generators}/**/*")
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"

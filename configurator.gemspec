@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Brennan Dunn"]
-  s.date = %q{2009-12-11}
+  s.date = %q{2009-12-13}
   s.description = %q{Fatten your models with key/value pairs}
   s.email = %q{me@brennandunn.com}
   s.extra_rdoc_files = [
@@ -21,8 +21,9 @@ Gem::Specification.new do |s|
      "Rakefile",
      "generators/config_table/config_table_generator.rb",
      "generators/config_table/templates/migration/create_config_table.rb",
-     "lib/configuration_hash.rb",
      "lib/configurator.rb",
+     "lib/configurator/configuration_hash.rb",
+     "lib/configurator/configurator.rb",
      "test/configurator_test.rb",
      "test/helper.rb"
   ]

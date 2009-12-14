@@ -100,7 +100,14 @@ Simply store the above values, and you're now able to quickly attach a form to t
  
 == Setup
 
-- Install the gem
+First, install the gem. If you're using Rails:
+
+  config.gem 'ar-configurator', :lib => 'configurator'
+
+Or just:
+  
+  gem install configurator
+
 - Run the config_table generator
 - Migrate your database
 - Include Configurator into the models you need it in, and that's it.

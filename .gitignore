@@ -1,3 +1,4 @@
 autotest
 coverage
 .DS_Store
+pkg/*

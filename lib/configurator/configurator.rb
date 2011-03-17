@@ -8,7 +8,7 @@ module Configurator
   
   def self.[]=(*keys)
     self.config ||= ConfigProxy.new(:class, self)
-    value = *keys.pop
+    value = keys.pop
     self.config[*keys] = value
   end
   

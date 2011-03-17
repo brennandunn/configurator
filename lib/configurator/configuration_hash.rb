@@ -23,7 +23,7 @@ class ConfigurationHash < ActiveRecord::Base
   end
   
   def value=(param)
-    write_attribute :value, param.to_s
+    write_attribute :value, param
     if respond_to?(:data_type)
       type = case param
       when TrueClass, FalseClass then 'bool'

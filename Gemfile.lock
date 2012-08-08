@@ -107,6 +107,6 @@ DEPENDENCIES
   mocha
   rails (~> 3.2.0)
   rake
-  shoulda (~> 3.1)
+  shoulda
   simplecov
   sqlite3 (~> 1.3)

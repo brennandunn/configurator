@@ -118,14 +118,14 @@ module Configurator
     end
 
     def from_hash(hsh)
-      hsh.each do |key, value|
-        if value.is_a?(Hash)
-          namespace = key
-          value.each do |key, value|
+      hsh.each do |h_key, h_value|
+        if h_value.is_a?(Hash)
+          namespace = h_key
+          h_value.each do |key, value|
             self[namespace, key] = value
           end
         else
-          self[key] = value
+          self[h_key] = h_value
         end
       end
     end

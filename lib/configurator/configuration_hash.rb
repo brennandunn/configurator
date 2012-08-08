@@ -1,5 +1,5 @@
 class ConfigurationHash < ActiveRecord::Base
-  set_table_name 'config'
+  self.table_name = 'config'
 
   belongs_to :associated, :polymorphic => true
 

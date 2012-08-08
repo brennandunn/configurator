@@ -17,6 +17,10 @@ class ConfiguratorTest < Test::Unit::TestCase
       assert_equal 'New York', @user.config[:favorite_city]
     end
 
+    should 'foo' do
+      assert_true false
+    end
+
     should 'test for data types being preserved' do
       @user.config[:age] = 50
       assert_instance_of Fixnum, @user.config[:age]

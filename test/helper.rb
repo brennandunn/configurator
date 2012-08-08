@@ -1,16 +1,9 @@
-begin
-  require File.dirname(__FILE__) + '/../../../../config/environment'
-rescue LoadError
-  require 'rubygems'
-  require 'activerecord'
-end
+require 'rubygems'
+require 'active_record'
 require 'test/unit'
-require 'shoulda'
-require 'mocha'
-
-$LOAD_PATH.unshift(File.dirname(__FILE__)+'/../lib')
 require 'configurator'
-require 'configuration_hash'
+
+ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:", )
 
 class User < ActiveRecord::Base
   include Configurator
@@ -22,8 +15,6 @@ class Company < ActiveRecord::Base
   default_configuration :notify_users? => true, :salary => { :default_for_manager => '$55,000', :default_for_employee => '$25,000' }
 end
 
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :dbfile => ":memory:")
- 
 def setup_db
   ::ActiveRecord::Base.class_eval do
     silence do

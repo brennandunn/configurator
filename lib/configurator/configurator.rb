@@ -1,5 +1,5 @@
 module Configurator
-  mattr_accessor :config
+  attr_accessor :config
   
   def self.[](*keys)
     self.config ||= ConfigProxy.new(:class, self)

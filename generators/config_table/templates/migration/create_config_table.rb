@@ -1,5 +1,5 @@
 class CreateConfigTable < ActiveRecord::Migration
-  def self.up
+  def up
     create_table :config do |t|
       t.references    :associated, :polymorphic => true
       t.string        :namespace
@@ -9,7 +9,7 @@ class CreateConfigTable < ActiveRecord::Migration
     end
   end
 
-  def self.down
+  def down
     drop_table :config
   end
 end

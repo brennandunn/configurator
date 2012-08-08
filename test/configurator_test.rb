@@ -1,15 +1,15 @@
 require File.join(File.dirname(__FILE__), 'helper')
- 
+
 class ConfiguratorTest < Test::Unit::TestCase
- 
+
   def setup
     setup_db
     @user = User.create
     @company = Company.create
   end
-  
+
   context 'setting configurator values on objects' do
-    
+
     should 'not accept either strings or symbols as keys' do
       @user.config[:favorite_color] = 'red'
       assert_equal 'red', @user.config[:favorite_color]
@@ -91,7 +91,22 @@ class ConfiguratorTest < Test::Unit::TestCase
       Configurator[:colors, :favorite] = 'red'
       assert_equal Configurator[:colors, :favorite], 'red'
     end
-    
+
+    should 'support setting values from a hash' do
+      User.config.from_hash({:default_salary => '$55,000'})
+      assert_equal '$55,000', User.config[:default_salary]
+    end
+
+    should 'support getting as a hash' do
+      User.config[:default_salary] = '$55,000'
+      expected = { :default_salary => '$55,000' }
+      assert_equal expected, User.config.to_hash
+    end
+
+    should 'support setting hash round tripping' do
+      orig_hash = { :default_salary => 55000.01, :name => "George", :male => true }
+      User.config.from_hash(orig_hash)
+      assert_equal orig_hash, User.config.to_hash
+    end
   end
- 
 end

@@ -1,14 +1,16 @@
+require 'active_support/core_ext'
+
 module Configurator
-  attr_accessor :config
+  mattr_accessor :config
   
   def self.[](*keys)
     self.config ||= ConfigProxy.new(:class, self)
-    self.config[*keys]
+    self.config[keys]
   end
   
   def self.[]=(*keys)
     self.config ||= ConfigProxy.new(:class, self)
-    value = *keys.pop
+    value = keys.pop
     self.config[*keys] = value
   end
   
@@ -19,7 +21,6 @@ module Configurator
   end
   
   module ClassMethods
-    
     def default_configuration(hsh = {})
       hsh.symbolize_keys!
       @@default_configuration = hsh
@@ -40,7 +41,6 @@ module Configurator
       config.from_hash(hsh)
       config
     end
-  
   end
   
   module InstanceMethods
@@ -85,7 +85,6 @@ module Configurator
       else
         pair.value
       end
-      
     end
 
     def []=(*keys)

@@ -1,0 +1,14 @@
+PATH
+  remote: .
+  specs:
+    ar-configurator (1.1.0)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ar-configurator!

@@ -121,8 +121,9 @@ I haven't tried this yet, but it should work fine.
 == Contributors
 
 Brennan Dunn, Kyle Bolton, Jacek Becela
+
 Andrew Newman
 
-
 Copyright (c) 2009 Brennan Dunn, released under the MIT license
+
 Copyright (c) 2012 Andrew Newman, released under the MIT license

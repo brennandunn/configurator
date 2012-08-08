@@ -119,6 +119,7 @@ If you need to be able to store complex objects, or strings greater than 255 cha
 I haven't tried this yet, but it should work fine.
 
 == Rails Versions
+
 This has been tested on Ruby 1.9.3 using Rails 3.2.0.
 
 == Contributors

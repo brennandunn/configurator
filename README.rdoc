@@ -120,7 +120,7 @@ I haven't tried this yet, but it should work fine.
 
 == Ruby and Rails Versions
 
-This has been tested on Ruby 1.9.3 using Rails 3.2.0.
+This has been tested on Ruby 1.9.3 using Rails 3.0.x, 3.1.x and 3.2.x (using thoughtbot's appraisal).
 
 == Contributors
 

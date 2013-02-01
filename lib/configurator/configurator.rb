@@ -8,7 +8,7 @@ module Configurator
   
   def self.[]=(*keys)
     self.config ||= ConfigProxy.new(:class, self)
-    value = *keys.pop
+    value = keys.pop
     self.config[*keys] = value
   end
   
@@ -24,7 +24,7 @@ module Configurator
       hsh.symbolize_keys!
       @@default_configuration = hsh
       hsh.each do |key, value|
-        config[key] = value
+        config[key] ||= value
       end
     end
     

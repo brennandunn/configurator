@@ -2,7 +2,7 @@ begin
   require File.dirname(__FILE__) + '/../../../../config/environment'
 rescue LoadError
   require 'rubygems'
-  require 'activerecord'
+  require 'active_record'
 end
 require 'test/unit'
 require 'shoulda'

@@ -23,12 +23,12 @@ class ConfigurationHash < ActiveRecord::Base
   end
   
   def value=(param)
-    write_attribute :value, param.to_s
+    write_attribute :value, param
     if respond_to?(:data_type)
       type = case param
-      when TrueClass, FalseClass    : 'bool'
-      when Float                    : 'float'
-      when Integer, Fixnum          : 'integer'
+      when TrueClass, FalseClass then 'bool'
+      when Float                 then 'float'
+      when Integer, Fixnum       then 'integer'
       else 'string'
       end
       write_attribute :data_type, type
@@ -38,10 +38,10 @@ class ConfigurationHash < ActiveRecord::Base
   def value
     return value_without_datatype unless respond_to?(:data_type)
     case data_type
-    when 'bool'     : self[:value] == 'true'
-    when 'float'    : self[:value].to_f
-    when 'integer'  : self[:value].to_i
-    else self[:value]
+      when 'bool'    then self[:value] == 'true'
+      when 'float'   then self[:value].to_f
+      when 'integer' then self[:value].to_i
+      else self[:value]
     end
   end
   
